@@ -14,6 +14,27 @@ An implementation of Kahn's algorithm.
 
 This algorithm will topologically sort a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological sorting](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation of the algorithm.
     
+A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
+
+    const tarjan = require('occam-tarjan');
+
+    const { Graph } = tarjan;
+
+    const graph = Graph.fromVertexLiterals(
+    
+      ['a', ['b']],
+      ['b', ['c']],
+      ['d', ['c']],
+      ['e', []]
+      
+    );
+    
+The sorted vertices of the graph are then made available:
+    
+    const sortedVertices = graph.getSortedVertices();
+    
+If there is a cycle, the value of `sortedVertices` will be `null`.
+    
 ## Installation
 
 With [npm](https://www.npmjs.com/):
