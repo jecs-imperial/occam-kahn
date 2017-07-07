@@ -17,5 +17,22 @@ describe('es6/common/Graph', function() {
         assert.instanceOf(graph, Graph);
       });
     });
+
+    describe('given a list of vertex literals', function() {
+      const vertexLiterals = [
+
+        ['a', ['b']],
+        ['b', ['c']],
+        ['d', ['c']],
+        ['e', []]
+
+      ];
+
+      it('Returns a graph with the requisite sorted vertices', function() {
+        const graph = Graph.fromVertexLiterals(vertexLiterals);
+
+        assert.instanceOf(graph, Graph);
+      });
+    });
   });
 });
