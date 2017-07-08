@@ -19,8 +19,11 @@ class Graph {
 
     verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges);
 
-    const sortedVertices = sortedVerticesFromVerticesAndEdges(vertices, edges),
-          graph = new Graph(sortedVertices);
+    const sortedVertices = sortedVerticesFromVerticesAndEdges(vertices, edges);
+    
+    addAncestorVerticesToSortedVertices(sortedVertices);
+    
+    const graph = new Graph(sortedVertices);
     
     return graph;
   }
@@ -72,9 +75,12 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
 
       edges.push(edge);
 
-      const incomingEdge = edge;
+      const incomingEdge = edge,  ///
+            outgoingEdge = edge;  ///
 
       descendantVertex.addIncomingEdge(incomingEdge);
+
+      vertex.addOutgoingEdge(outgoingEdge);
     });
   });
 }
@@ -126,4 +132,21 @@ function sortedVerticesFromVerticesAndEdges(vertices, edges) {
   }
 
   return sortedVertices;
+}
+
+function addAncestorVerticesToSortedVertices(sortedVertices) {
+  if (sortedVertices !== null) {
+    sortedVertices.forEach(function(sortedVertex) {
+      sortedVertex.forEachOutgoingEdge(function(outgoingEdge) {
+        const outgoingEdgeLastVertex = outgoingEdge.getLastVertex(),
+              descendantVertex = outgoingEdgeLastVertex,  ///
+              ancestorVertex = sortedVertex,  ///
+              ancestorVertices = ancestorVertex.getAncestorVertices();  ///
+
+        descendantVertex.addAncestorVertices(ancestorVertices);
+
+        descendantVertex.addAncestorVertex(ancestorVertex);
+      })
+    });
+  }
 }

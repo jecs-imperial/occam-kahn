@@ -20,6 +20,10 @@ class arrayUtil {
       callback(element, index);
     }
   }
+
+  static push(array, elements) {
+    Array.prototype.push.apply(array, elements)
+  }
 }
 
 module.exports = arrayUtil;

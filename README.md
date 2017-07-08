@@ -12,20 +12,22 @@ An implementation of Kahn's algorithm.
 
 ## Introduction
 
-This algorithm will topologically sort a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological sorting](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation of the algorithm.
+This algorithm will topologically sort a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological sorting](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation.
     
 A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
 
-    const tarjan = require('occam-tarjan');
+    const kahn = require('occam-kahn');
 
-    const { Graph } = tarjan;
+    const { Graph } = kahn;
 
     const graph = Graph.fromVertexLiterals(
     
       ['a', ['b']],
       ['b', ['c']],
       ['d', ['c']],
-      ['e', []]
+      ['e', []],
+      ['f', ['g']],
+      ['h', ['g']]
       
     );
     
@@ -34,6 +36,8 @@ The sorted vertices of the graph are then made available:
     const sortedVertices = graph.getSortedVertices();
     
 If there is a cycle, the value of `sortedVertices` will be `null`.
+
+As well as sorting the vertices, each sorted vertex has an array of ancestor vertices, themselves sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices [`d`, `a`, `b`].
     
 ## Installation
 
