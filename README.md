@@ -37,7 +37,7 @@ The sorted vertices of the graph are then made available:
     
 If there is a cycle, the value of `sortedVertices` will be `null`.
 
-As well as sorting the vertices, each sorted vertex has an array of ancestor vertices, themselves sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`.
+As well as sorting the vertices, each sorted vertex has an array of ancestor vertices, themselves sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`. This is the real utility of the algorithm.
     
 ## Installation
 

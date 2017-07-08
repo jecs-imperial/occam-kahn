@@ -25,10 +25,6 @@ class Vertex {
     return starting;
   }
 
-  forEachOutgoingEdge(callback) {
-    this.outgoingEdges.forEach(callback);
-  }
-
   addIncomingEdge(incomingEdge) {
     this.incomingEdges.push(incomingEdge);
   }
@@ -49,6 +45,10 @@ class Vertex {
     const index = this.incomingEdges.indexOf(incomingEdge);
     
     this.incomingEdges.splice(index, 1);
+  }
+
+  forEachOutgoingEdge(callback) {
+    this.outgoingEdges.forEach(callback);
   }
 
   static fromVertexName(vertexName) {
