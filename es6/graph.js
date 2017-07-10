@@ -37,7 +37,7 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
   vertexLiterals.forEach(function(vertexLiteral) {
     const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
           secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
-          descendantVertexNames = secondVertexLiteralElement, ///
+          ancestorVertexNames = secondVertexLiteralElement, ///
           vertexName = firstVertexLiteralElement; ///
 
     let vertex;
@@ -54,23 +54,23 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
       vertices.push(vertex);
     }
 
-    descendantVertexNames.forEach(function(descendantVertexName) {
-      let descendantVertex;
+    ancestorVertexNames.forEach(function(ancestorVertexName) {
+      let ancestorVertex;
 
-      const descendantVertexExists = vertexMap.hasOwnProperty(descendantVertexName);
+      const ancestorVertexExists = vertexMap.hasOwnProperty(ancestorVertexName);
 
-      if (descendantVertexExists) {
-        descendantVertex = vertexMap[descendantVertexName];
+      if (ancestorVertexExists) {
+        ancestorVertex = vertexMap[ancestorVertexName];
       } else {
-        descendantVertex = Vertex.fromVertexName(descendantVertexName);
+        ancestorVertex = Vertex.fromVertexName(ancestorVertexName);
 
-        vertexMap[descendantVertexName] = descendantVertex;
+        vertexMap[ancestorVertexName] = ancestorVertex;
 
-        vertices.push(descendantVertex);
+        vertices.push(ancestorVertex);
       }
 
       const firstVertex = vertex,
-            secondVertex = descendantVertex,
+            secondVertex = ancestorVertex,
             edge = new Edge(firstVertex, secondVertex);
 
       edges.push(edge);
@@ -78,9 +78,9 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
       const incomingEdge = edge,  ///
             outgoingEdge = edge;  ///
 
-      descendantVertex.addIncomingEdge(incomingEdge);
+      vertex.addIncomingEdge(incomingEdge);
 
-      vertex.addOutgoingEdge(outgoingEdge);
+      ancestorVertex.addOutgoingEdge(outgoingEdge);
     });
   });
 }

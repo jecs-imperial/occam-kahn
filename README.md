@@ -31,6 +31,8 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
       
     );
     
+Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. The reason for this is that the direction of the arrows can then be said to reflect the dependencies between the vertices. For example, vertex `a` is dependent upon vertex `b` and so on. When constructing a dependency tree, this is the preferred method, because the dependencies are usually available.  
+    
 The sorted vertices of the graph are then made available:
     
     const sortedVertices = graph.getSortedVertices();
