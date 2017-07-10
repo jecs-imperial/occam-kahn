@@ -13,6 +13,10 @@ class Vertex {
   getName() {
     return this.name;
   }
+
+  getAncestorVertices() {
+    return this.ancestorVertices;
+  }
   
   isStarting() {
     const incomingEdgesLength = this.incomingEdges.length,
