@@ -21,12 +21,10 @@ describe('es6/common/Graph', function() {
     describe('given a list of vertex literals', function() {
       const vertexLiterals = [
 
-        ['a', ['b']],
-        ['b', ['c']],
-        ['d', ['c']],
-        ['e', []],
-        ['f', ['g']],
-        ['h', ['g']]
+        ['Propositional-Logic', []],
+        ['De-Morgans-Laws', ['Propositional-Logic']],
+        ['Natural-Numbers', ['Propositional-Logic']],
+        ['Peano-Axioms', ['Propositional-Logic', 'Natural-Numbers']]
 
       ];
 

@@ -14,10 +14,6 @@ class Vertex {
     return this.name;
   }
   
-  getAncestorVertices() {
-    return this.ancestorVertices;
-  }
-  
   isStarting() {
     const incomingEdgesLength = this.incomingEdges.length,
           starting = (incomingEdgesLength === 0);
@@ -35,10 +31,6 @@ class Vertex {
   
   addAncestorVertex(ancestorVertex) {
     this.ancestorVertices.push(ancestorVertex);
-  }
-
-  addAncestorVertices(ancestorVertices) {
-    arrayUtil.push(this.ancestorVertices, ancestorVertices);
   }
 
   removeIncomingEdge(incomingEdge) {

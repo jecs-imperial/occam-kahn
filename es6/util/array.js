@@ -20,14 +20,6 @@ class arrayUtil {
       callback(element, index);
     }
   }
-
-  static push(array, elements) {
-    Array.prototype.push.apply(array, elements)
-  }
-
-  static unshift(array, elements) {
-    Array.prototype.unshift.apply(array, elements)
-  }
 }
 
 module.exports = arrayUtil;

@@ -140,10 +140,7 @@ function addAncestorVerticesToSortedVertices(sortedVertices) {
       sortedVertex.forEachOutgoingEdge(function(outgoingEdge) {
         const outgoingEdgeLastVertex = outgoingEdge.getLastVertex(),
               descendantVertex = outgoingEdgeLastVertex,  ///
-              ancestorVertex = sortedVertex,  ///
-              ancestorVertices = ancestorVertex.getAncestorVertices();  ///
-
-        descendantVertex.addAncestorVertices(ancestorVertices);
+              ancestorVertex = sortedVertex;  ///
 
         descendantVertex.addAncestorVertex(ancestorVertex);
       })
