@@ -69,8 +69,8 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
         vertices.push(ancestorVertex);
       }
 
-      const firstVertex = vertex,
-            secondVertex = ancestorVertex,
+      const firstVertex = ancestorVertex, ///
+            secondVertex = vertex,  ///
             edge = new Edge(firstVertex, secondVertex);
 
       edges.push(edge);
