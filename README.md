@@ -35,7 +35,7 @@ Note that the array of names that is the second element of each literal gives th
     
 The topologically sorted vertices of the graph are then made available:
     
-    const topologicallySortedVertices = graph.getTopologically SortedVertices();
+    const topologicallySortedVertices = graph.getTopologicallySortedVertices();
     
 If there is a cycle, the value of `sortedVertices` will be `null`.
 
