@@ -33,13 +33,13 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
     
 Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. The reason for this is that the direction of the arrows can then be said to reflect the dependencies between the vertices. For example, vertex `a` is dependent upon vertex `b` and so on. When constructing a dependency tree, this is the preferred method, because the dependencies are usually available.  
     
-The sorted vertices of the graph are then made available:
+The topologically sorted vertices of the graph are then made available:
     
-    const sortedVertices = graph.getSortedVertices();
+    const topologicallySortedVertices = graph.getTopologically SortedVertices();
     
 If there is a cycle, the value of `sortedVertices` will be `null`.
 
-As well as sorting the vertices, each sorted vertex has an array of ancestor vertices, themselves sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`. This is the real utility of the algorithm.
+As well as topologically sorting the vertices, each vertex has an array of ancestor vertices, themselves topologically sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`.
     
 ## Installation
 
