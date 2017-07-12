@@ -37,7 +37,7 @@ The topologically sorted vertices of the graph are then made available:
     
     const topologicallySortedVertices = graph.getTopologicallySortedVertices();
     
-If there is a cycle, the value of `sortedVertices` will be `null`.
+If there is a cycle, the return value will be `null`.
 
 As well as topologically sorting the vertices, each vertex has an array of ancestor vertices, themselves topologically sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`.
     
