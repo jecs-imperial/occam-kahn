@@ -1,7 +1,5 @@
 'use strict';
 
-const arrayUtil = require('../util/array');
-
 class Vertex {
   constructor(name, incomingEdges, outgoingEdges, ancestorVertices) {
     this.name = name;

@@ -5,12 +5,12 @@ const Edge = require('./graph/edge'),
       arrayUtil = require('./util/array');
 
 class Graph {
-  constructor (sortedVertices) {
-    this.sortedVertices = sortedVertices;
+  constructor (topologicallySortedVertices) {
+    this.topologicallySortedVertices = topologicallySortedVertices;
   }
 
-  getSortedVertices() {
-    return this.sortedVertices;
+  getTopologicallySortedVertices() {
+    return this.topologicallySortedVertices;
   }
 
   static fromVertexLiterals(vertexLiterals) {
@@ -19,11 +19,11 @@ class Graph {
 
     verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges);
 
-    const sortedVertices = sortedVerticesFromVerticesAndEdges(vertices, edges);
+    const topologicallySortedVertices = topologicallySortedVerticesFromVerticesAndEdges(vertices, edges);
     
-    addAncestorVerticesToSortedVertices(sortedVertices);
+    addAncestorVerticesToSortedVertices(topologicallySortedVertices);
     
-    const graph = new Graph(sortedVertices);
+    const graph = new Graph(topologicallySortedVertices);
     
     return graph;
   }
@@ -85,8 +85,8 @@ function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
   });
 }
 
-function sortedVerticesFromVerticesAndEdges(vertices, edges) {
-  let sortedVertices = [];
+function topologicallySortedVerticesFromVerticesAndEdges(vertices, edges) {
+  let topologicallySortedVertices = [];
   
   const startingVertices = vertices.filter(function(vertex) {
           const vertexStarting = vertex.isStarting();
@@ -98,9 +98,9 @@ function sortedVerticesFromVerticesAndEdges(vertices, edges) {
 
   while (startingVerticesLength > 0) {
     const startingVertex = startingVertices.pop(),
-          sortedVertex = startingVertex;  ///
+          topologicallySortedVertex = startingVertex;  ///
 
-    sortedVertices.push(sortedVertex);
+    topologicallySortedVertices.push(topologicallySortedVertex);
 
     arrayUtil.backwardsForEach(edges, function(edge, index) {
       const firstVertex = edge.getFirstVertex(),
@@ -128,19 +128,19 @@ function sortedVerticesFromVerticesAndEdges(vertices, edges) {
   const edgesLength = edges.length;
 
   if (edgesLength > 0) {
-    sortedVertices = null;
+    topologicallySortedVertices = null;
   }
 
-  return sortedVertices;
+  return topologicallySortedVertices;
 }
 
-function addAncestorVerticesToSortedVertices(sortedVertices) {
-  if (sortedVertices !== null) {
-    sortedVertices.forEach(function(sortedVertex) {
-      sortedVertex.forEachOutgoingEdge(function(outgoingEdge) {
+function addAncestorVerticesToSortedVertices(topologicallySortedVertices) {
+  if (topologicallySortedVertices !== null) {
+    topologicallySortedVertices.forEach(function(topologicallySortedVertex) {
+      topologicallySortedVertex.forEachOutgoingEdge(function(outgoingEdge) {
         const outgoingEdgeLastVertex = outgoingEdge.getLastVertex(),
               descendantVertex = outgoingEdgeLastVertex,  ///
-              ancestorVertex = sortedVertex;  ///
+              ancestorVertex = topologicallySortedVertex;  ///
 
         descendantVertex.addAncestorVertex(ancestorVertex);
       })
