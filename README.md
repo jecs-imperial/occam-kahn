@@ -37,9 +37,13 @@ The topologically sorted vertices of the graph are then made available:
     
     const topologicallySortedVertices = graph.getTopologicallySortedVertices();
     
-If there is a cycle, the return value will be `null`.
+If there is a cycle, the return value will be `null`. You can also check for the presence of cycles explicitly:
 
-As well as topologically sorting the vertices, each vertex has an array of ancestor vertices, themselves topologically sorted. For the above input, for example, the `c` vertex will have an array of ancestor vertices `['d', 'a', 'b']`.
+    const cyclesPresent = graph.areCyclesPresent();
+    
+If there are cycles present, they will be amongst the remaining edges:
+
+    const remainingEdges = graph.getRemainingEdges();
     
 ## Installation
 

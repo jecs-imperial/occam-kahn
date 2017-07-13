@@ -17,6 +17,13 @@ class Graph {
   getRemainingEdges() {
     return this.remainingEdges;
   }
+  
+  areCyclesPresent() {
+    const remainingEdgesLength = this.remainingEdges.getLength(),
+          cyclesPresent = (remainingEdgesLength !== 0);
+    
+    return cyclesPresent;
+  }
 
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
