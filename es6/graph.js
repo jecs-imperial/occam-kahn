@@ -19,7 +19,7 @@ class Graph {
   }
   
   areCyclesPresent() {
-    const remainingEdgesLength = this.remainingEdges.getLength(),
+    const remainingEdgesLength = this.remainingEdges.length,
           cyclesPresent = (remainingEdgesLength !== 0);
     
     return cyclesPresent;
