@@ -14,16 +14,10 @@ class Graph {
   }
 
   static fromVertexLiterals(vertexLiterals) {
-    const vertices = [],
-          edges = [];
-
-    verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges);
-
-    const topologicallySortedVertices = topologicallySortedVerticesFromVerticesAndEdges(vertices, edges);
-    
-    addAncestorVerticesToSortedVertices(topologicallySortedVertices);
-    
-    const graph = new Graph(topologicallySortedVertices);
+    const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
+          edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
+          topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
+          graph = new Graph(topologicallySortedVertices);
     
     return graph;
   }
@@ -31,68 +25,82 @@ class Graph {
 
 module.exports = Graph;
 
-function verticesAndEdgesFromVertexLiterals(vertexLiterals, vertices, edges) {
+function vertexMapFromVertexLiterals(vertexLiterals) {
   const vertexMap = {};
+
+  vertexLiterals.forEach(function(vertexLiteral) {
+    const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
+          vertexName = firstVertexLiteralElement, ///
+          vertexExists = vertexMap.hasOwnProperty(vertexName);
+
+    if (!vertexExists) {
+      const vertex = Vertex.fromVertexName(vertexName);
+
+      vertexMap[vertexName] = vertex;
+    }
+
+    const secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
+          ancestorVertexNames = secondVertexLiteralElement; ///
+
+    ancestorVertexNames.forEach(function(ancestorVertexName) {
+      const ancestorVertexExists = vertexMap.hasOwnProperty(ancestorVertexName);
+
+      if (!ancestorVertexExists) {
+        const ancestorVertex = Vertex.fromVertexName(ancestorVertexName);
+
+        vertexMap[ancestorVertexName] = ancestorVertex;
+      }
+    });
+  });
+
+  return vertexMap;
+}
+
+function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
+  const edges = [];
 
   vertexLiterals.forEach(function(vertexLiteral) {
     const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
           secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement, ///
-          vertexName = firstVertexLiteralElement; ///
-
-    let vertex;
-
-    const vertexExists = vertexMap.hasOwnProperty(vertexName);
-
-    if (vertexExists) {
-      vertex = vertexMap[vertexName];
-    } else {
-      vertex = Vertex.fromVertexName(vertexName);
-
-      vertexMap[vertexName] = vertex;
-
-      vertices.push(vertex);
-    }
+          vertexName = firstVertexLiteralElement, ///
+          vertex = vertexMap[vertexName];
 
     ancestorVertexNames.forEach(function(ancestorVertexName) {
-      let ancestorVertex;
-
-      const ancestorVertexExists = vertexMap.hasOwnProperty(ancestorVertexName);
-
-      if (ancestorVertexExists) {
-        ancestorVertex = vertexMap[ancestorVertexName];
-      } else {
-        ancestorVertex = Vertex.fromVertexName(ancestorVertexName);
-
-        vertexMap[ancestorVertexName] = ancestorVertex;
-
-        vertices.push(ancestorVertex);
-      }
-
-      const firstVertex = ancestorVertex, ///
-            secondVertex = vertex,  ///
-            edge = new Edge(firstVertex, secondVertex);
+      const ancestorVertex = vertexMap[ancestorVertexName],
+            sourceVertex = ancestorVertex, ///
+            targetVertex = vertex,  ///
+            edge = new Edge(sourceVertex, targetVertex),
+            incomingEdge = edge,  ///
+            outgoingEdge = edge;  ///
 
       edges.push(edge);
-
-      const incomingEdge = edge,  ///
-            outgoingEdge = edge;  ///
 
       vertex.addIncomingEdge(incomingEdge);
 
       ancestorVertex.addOutgoingEdge(outgoingEdge);
     });
   });
+
+  return edges;
 }
 
-function topologicallySortedVerticesFromVerticesAndEdges(vertices, edges) {
+function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   let topologicallySortedVertices = [];
-  
-  const startingVertices = vertices.filter(function(vertex) {
-          const vertexStarting = vertex.isStarting();
-      
-          return vertexStarting;
-        });
+
+  const vertexNames = Object.keys(vertexMap),
+        startingVertices = vertexNames.reduce(function(startingVertices, vertexName) {
+          const vertex = vertexMap[vertexName],
+                vertexStarting = vertex.isStarting();
+
+          if (vertexStarting) {
+            const startingVertex = vertex;  ///
+
+            startingVertices.push(startingVertex);
+          }
+
+          return startingVertices
+        }, []);
 
   let startingVerticesLength = startingVertices.length;
 
@@ -103,13 +111,13 @@ function topologicallySortedVerticesFromVerticesAndEdges(vertices, edges) {
     topologicallySortedVertices.push(topologicallySortedVertex);
 
     arrayUtil.backwardsForEach(edges, function(edge, index) {
-      const firstVertex = edge.getFirstVertex(),
-            edgeStarting = (firstVertex === startingVertex);
+      const sourceVertex = edge.getSourceVertex(),
+            edgeStarting = (sourceVertex === startingVertex);
 
       if (edgeStarting) {
         edges.splice(index, 1);
 
-        const lastVertex = edge.getLastVertex(),
+        const lastVertex = edge.getTargetVertex(),
               incomingEdge = edge;  ///
 
         lastVertex.removeIncomingEdge(incomingEdge);
@@ -132,18 +140,4 @@ function topologicallySortedVerticesFromVerticesAndEdges(vertices, edges) {
   }
 
   return topologicallySortedVertices;
-}
-
-function addAncestorVerticesToSortedVertices(topologicallySortedVertices) {
-  if (topologicallySortedVertices !== null) {
-    topologicallySortedVertices.forEach(function(topologicallySortedVertex) {
-      topologicallySortedVertex.forEachOutgoingEdge(function(outgoingEdge) {
-        const outgoingEdgeLastVertex = outgoingEdge.getLastVertex(),
-              descendantVertex = outgoingEdgeLastVertex,  ///
-              ancestorVertex = topologicallySortedVertex;  ///
-
-        descendantVertex.addAncestorVertex(ancestorVertex);
-      })
-    });
-  }
 }

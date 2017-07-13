@@ -11,7 +11,7 @@ describe('es6/common/Graph', function() {
     describe('given an empty list of vertex literals', function() {
       const vertexLiterals = [];
 
-      it('Returns an instance of the Graph class', function() {
+      xit('Returns an instance of the Graph class', function() {
         const graph = Graph.fromVertexLiterals(vertexLiterals);
 
         assert.instanceOf(graph, Graph);
@@ -21,10 +21,12 @@ describe('es6/common/Graph', function() {
     describe('given a list of vertex literals', function() {
       const vertexLiterals = [
 
-        ['Propositional-Logic', []],
-        ['De-Morgans-Laws', ['Propositional-Logic']],
-        ['Natural-Numbers', ['Propositional-Logic']],
-        ['Peano-Axioms', ['Propositional-Logic', 'Natural-Numbers']]
+        ['a', ['b']],
+        ['b', ['c']],
+        ['d', ['c','a']],
+        ['e', []],
+        ['f', ['g']],
+        ['h', ['g']]
 
       ];
 

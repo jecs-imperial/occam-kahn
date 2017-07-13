@@ -18,7 +18,7 @@ class Vertex {
   
   isStarting() {
     const incomingEdgesLength = this.incomingEdges.length,
-          starting = (incomingEdgesLength === 0);
+          starting = (incomingEdgesLength === 0); ///
     
     return starting;
   }
@@ -32,7 +32,17 @@ class Vertex {
   }
   
   addAncestorVertex(ancestorVertex) {
-    this.ancestorVertices.push(ancestorVertex);
+    const index = this.ancestorVertices.indexOf(ancestorVertex);
+
+    if (index === -1) {
+      this.ancestorVertices.push(ancestorVertex);
+    }
+  }
+
+  addAncestorVertices(ancestorVertices) {
+    ancestorVertices.forEach(function(ancestorVertex) {
+      this.addAncestorVertex(ancestorVertex);
+    }.bind(this));
   }
 
   removeIncomingEdge(incomingEdge) {
@@ -49,7 +59,7 @@ class Vertex {
     const name = vertexName,  ///
           incomingEdges = [],
           outgoingEdges = [],
-          ancestorVertices = [],
+          ancestorVertices = [],  ///
           vertex = new Vertex(name, incomingEdges, outgoingEdges, ancestorVertices);
     
     return vertex;

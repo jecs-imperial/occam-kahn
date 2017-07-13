@@ -1,17 +1,17 @@
 'use strict';
 
 class Edge {
-  constructor(firstVertex, lastVertex) {
-    this.firstVertex = firstVertex;
-    this.lastVertex = lastVertex;
+  constructor(sourceVertex, targetVertex) {
+    this.sourceVertex = sourceVertex;
+    this.targetVertex = targetVertex;
   }
 
-  getFirstVertex() {
-    return this.firstVertex;
+  getSourceVertex() {
+    return this.sourceVertex;
   }
   
-  getLastVertex() {
-    return this.lastVertex;
+  getTargetVertex() {
+    return this.targetVertex;
   }
 }
 
