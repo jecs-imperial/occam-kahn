@@ -5,19 +5,25 @@ const Edge = require('./graph/edge'),
       arrayUtil = require('./util/array');
 
 class Graph {
-  constructor (topologicallySortedVertices) {
+  constructor (topologicallySortedVertices, remainingEdges) {
     this.topologicallySortedVertices = topologicallySortedVertices;
+    this.remainingEdges = remainingEdges;
   }
 
   getTopologicallySortedVertices() {
     return this.topologicallySortedVertices;
   }
 
+  getRemainingEdges() {
+    return this.remainingEdges;
+  }
+
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
           topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
-          graph = new Graph(topologicallySortedVertices);
+          remainingEdges = edges, ///
+          graph = new Graph(topologicallySortedVertices, remainingEdges);
     
     return graph;
   }
