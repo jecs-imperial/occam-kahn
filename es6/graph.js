@@ -101,16 +101,14 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
 function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   let topologicallySortedVertices = [];
 
-  const startingVertices = startingVerticesFromVertexMap(vertexMap);
+  const startingVertices = startingVerticesFromVertexMap(vertexMap),
+        removedEdges = [];
 
-  let index = 0,
-      startingVerticesLength = startingVertices.length;
+  let startingVerticesLength = startingVertices.length;
 
   while (startingVerticesLength > 0) {
     const startingVertex = startingVertices.pop(),
           topologicallySortedVertex = startingVertex;  ///
-
-    topologicallySortedVertex.setIndex(index++);
 
     topologicallySortedVertices.push(topologicallySortedVertex);
 
@@ -119,12 +117,13 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
             edgeStarting = (sourceVertex === startingVertex); ///
 
       if (edgeStarting) {
-        edges.splice(index, 1);
-
         const targetVertex = edge.getTargetVertex(),
-              incomingEdge = edge;  ///
+              incomingEdge = edge, ///
+              removedEdge = edge;  ///
 
         targetVertex.removeIncomingEdge(incomingEdge);
+
+        removedEdges.push(removedEdge);
 
         const targetVertexStarting = targetVertex.isStarting();
 
@@ -141,8 +140,16 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   const edgesLength = edges.length;
 
-  if (edgesLength > 0) {
-    topologicallySortedVertices = null;
+  if (edgesLength === 0) {
+    removedEdges.forEach(function(removedEdge) {
+      const sourceVertex = removedEdge.getSourceVertex(),
+            targetVertex = removedEdge.getTargetVertex(),
+            outgoingEdge = removedEdge, ///
+            incomingEdge = removedEdge; ///
+      
+      sourceVertex.addOutgoingEdge(outgoingEdge);
+      targetVertex.addIncomingEdge(incomingEdge);
+    })
   }
 
   return topologicallySortedVertices;
@@ -152,7 +159,7 @@ function startingVerticesFromVertexMap(vertexMap) {
   const vertexNames = Object.keys(vertexMap),
         startingVertices = vertexNames.reduce(function(startingVertices, vertexName) {
           const vertex = vertexMap[vertexName],
-              vertexStarting = vertex.isStarting();
+                vertexStarting = vertex.isStarting();
 
           if (vertexStarting) {
             const startingVertex = vertex;  ///
@@ -165,4 +172,3 @@ function startingVerticesFromVertexMap(vertexMap) {
 
   return startingVertices;
 }
-

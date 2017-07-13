@@ -31,20 +31,26 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
       
     );
     
-Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. The reason for this is that the direction of the arrows can then be said to reflect the dependencies between the vertices. For example, vertex `a` is dependent upon vertex `b` and so on. When constructing a dependency tree, this is the preferred method, because the dependencies are usually available.  
-    
-The topologically sorted vertices of the graph are then made available:
-    
-    const topologicallySortedVertices = graph.getTopologicallySortedVertices();
-    
-If there is a cycle, the return value will be `null`. You can also check for the presence of cycles explicitly:
+Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. This is the preferred method when constructing a dependency tree, because a resource's dependencies are usually stipulated whereas the converse is not usually true.
+   
+It is possible to check whether there are any cycles present:
 
     const cyclesPresent = graph.areCyclesPresent();
+    
+If there are no cycles present, the topologically sorted vertices of the graph are available:
+    
+    const topologicallySortedVertices = graph.getTopologicallySortedVertices();
     
 If there are cycles present, they will be amongst the remaining edges:
 
     const remainingEdges = graph.getRemainingEdges();
     
+The algorithm will also leave both the incoming and outgoing edges of the topologically sorted vertices intact and these are available by way of the requisite getters:
+  
+    const firstTopologicallySortedVertex = first(topologicallySortedVertices),
+          incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
+          outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
+        
 ## Installation
 
 With [npm](https://www.npmjs.com/):
