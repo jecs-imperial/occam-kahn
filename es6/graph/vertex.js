@@ -1,8 +1,9 @@
 'use strict';
 
 class Vertex {
-  constructor(name, incomingEdges, outgoingEdges, ancestorVertices) {
+  constructor(name, label, incomingEdges, outgoingEdges, ancestorVertices) {
     this.name = name;
+    this.label = label;
     this.incomingEdges = incomingEdges;
     this.outgoingEdges = outgoingEdges;
     this.ancestorVertices = ancestorVertices;
@@ -10,6 +11,10 @@ class Vertex {
 
   getName() {
     return this.name;
+  }
+  
+  getLabel() {
+    return this.label;
   }
 
   getAncestorVertices() {
@@ -21,6 +26,10 @@ class Vertex {
           starting = (incomingEdgesLength === 0); ///
     
     return starting;
+  }
+  
+  setLabel(label) {
+    this.label = label;
   }
 
   addIncomingEdge(incomingEdge) {
@@ -57,10 +66,11 @@ class Vertex {
 
   static fromVertexName(vertexName) {
     const name = vertexName,  ///
+          label = null,  ///
           incomingEdges = [],
           outgoingEdges = [],
           ancestorVertices = [],  ///
-          vertex = new Vertex(name, incomingEdges, outgoingEdges, ancestorVertices);
+          vertex = new Vertex(name, label, incomingEdges, outgoingEdges, ancestorVertices);
     
     return vertex;
   }

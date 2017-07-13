@@ -103,11 +103,15 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   const startingVertices = startingVerticesFromVertexMap(vertexMap);
 
-  let startingVerticesLength = startingVertices.length;
+  let index = 0,
+      startingVerticesLength = startingVertices.length;
 
   while (startingVerticesLength > 0) {
     const startingVertex = startingVertices.pop(),
-          topologicallySortedVertex = startingVertex;  ///
+          topologicallySortedVertex = startingVertex,  ///
+          label = index++;  ///
+
+    topologicallySortedVertex.setLabel(label);
 
     topologicallySortedVertices.push(topologicallySortedVertex);
 
