@@ -31,7 +31,7 @@ class Graph {
           topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = edges, ///
           graph = new Graph(topologicallySortedVertices, remainingEdges);
-    
+
     return graph;
   }
 }
@@ -108,10 +108,9 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   while (startingVerticesLength > 0) {
     const startingVertex = startingVertices.pop(),
-          topologicallySortedVertex = startingVertex,  ///
-          label = index++;  ///
+          topologicallySortedVertex = startingVertex;  ///
 
-    topologicallySortedVertex.setLabel(label);
+    topologicallySortedVertex.setIndex(index++);
 
     topologicallySortedVertices.push(topologicallySortedVertex);
 
@@ -166,3 +165,4 @@ function startingVerticesFromVertexMap(vertexMap) {
 
   return startingVertices;
 }
+

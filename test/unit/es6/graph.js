@@ -21,13 +21,17 @@ describe('es6/common/Graph', function() {
     describe('given a list of vertex literals', function() {
       const vertexLiterals = [
 
-        ['a', ['b']],
-        ['b', ['c']],
-        ['d', ['c','a']],
-        ['e', []],
-        ['f', ['g']],
-        ['h', ['g']]
-
+        // ['a', ['b']],
+        // ['b', ['c']],
+        // ['d', ['c','a']],
+        // ['e', []],
+        // ['f', ['g']],
+        // ['h', ['g']]
+          
+        [ 5, [ 4, 2 ]],
+        [ 4, [ 3 ] ],
+        [ 3, [ 1 ] ]
+          
       ];
 
       it('Returns a graph with the requisite sorted vertices', function() {
