@@ -94,19 +94,7 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
 function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   let topologicallySortedVertices = [];
 
-  const vertexNames = Object.keys(vertexMap),
-        startingVertices = vertexNames.reduce(function(startingVertices, vertexName) {
-          const vertex = vertexMap[vertexName],
-                vertexStarting = vertex.isStarting();
-
-          if (vertexStarting) {
-            const startingVertex = vertex;  ///
-
-            startingVertices.push(startingVertex);
-          }
-
-          return startingVertices
-        }, []);
+  const startingVertices = startingVerticesFromVertexMap(vertexMap);
 
   let startingVerticesLength = startingVertices.length;
 
@@ -118,20 +106,22 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
     arrayUtil.backwardsForEach(edges, function(edge, index) {
       const sourceVertex = edge.getSourceVertex(),
-            edgeStarting = (sourceVertex === startingVertex);
+            edgeStarting = (sourceVertex === startingVertex); ///
 
       if (edgeStarting) {
         edges.splice(index, 1);
 
-        const lastVertex = edge.getTargetVertex(),
+        const targetVertex = edge.getTargetVertex(),
               incomingEdge = edge;  ///
 
-        lastVertex.removeIncomingEdge(incomingEdge);
+        targetVertex.removeIncomingEdge(incomingEdge);
 
-        const lastVertexStarting = lastVertex.isStarting();
+        const targetVertexStarting = targetVertex.isStarting();
 
-        if (lastVertexStarting) {
-          startingVertices.push(lastVertex);
+        if (targetVertexStarting) {
+          const startingVertex = targetVertex;  ///
+
+          startingVertices.push(startingVertex);
         }
       }
     });
@@ -146,4 +136,22 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   }
 
   return topologicallySortedVertices;
+}
+
+function startingVerticesFromVertexMap(vertexMap) {
+  const vertexNames = Object.keys(vertexMap),
+        startingVertices = vertexNames.reduce(function(startingVertices, vertexName) {
+          const vertex = vertexMap[vertexName],
+              vertexStarting = vertex.isStarting();
+
+          if (vertexStarting) {
+            const startingVertex = vertex;  ///
+
+            startingVertices.push(startingVertex);
+          }
+
+          return startingVertices
+        }, []);
+
+  return startingVertices;
 }
