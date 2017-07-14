@@ -10,6 +10,14 @@ class Vertex {
   getName() {
     return this.name;
   }
+
+  getIncomingEdges() {
+    return this.incomingEdges;
+  }
+
+  getOutgoingEdges() {
+    return this.outgoingEdges;
+  }
   
   isStarting() {
     const incomingEdgesLength = this.incomingEdges.length,
