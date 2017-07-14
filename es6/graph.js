@@ -5,9 +5,10 @@ const Edge = require('./graph/edge'),
       arrayUtil = require('./util/array');
 
 class Graph {
-  constructor (topologicallySortedVertices, remainingEdges) {
+  constructor (topologicallySortedVertices, remainingEdges, edges) {
     this.topologicallySortedVertices = topologicallySortedVertices;
     this.remainingEdges = remainingEdges;
+    this.edges = edges;
   }
 
   getTopologicallySortedVertices() {
@@ -16,6 +17,10 @@ class Graph {
 
   getRemainingEdges() {
     return this.remainingEdges;
+  }
+  
+  getEdges() {
+    return this.edges;
   }
   
   areCyclesPresent() {
@@ -30,7 +35,7 @@ class Graph {
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
           topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = edges, ///
-          graph = new Graph(topologicallySortedVertices, remainingEdges);
+          graph = new Graph(topologicallySortedVertices, remainingEdges, edges);
 
     return graph;
   }
@@ -145,9 +150,12 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   if (edgesLength === 0) {
     removedEdges.forEach(function(removedEdge) {
       const targetVertex = removedEdge.getTargetVertex(),
-            incomingEdge = removedEdge; ///
+            incomingEdge = removedEdge, ///
+            edge = removedEdge; ///
       
       targetVertex.addIncomingEdge(incomingEdge);
+      
+      edges.push(edge);
     })
   }
 
