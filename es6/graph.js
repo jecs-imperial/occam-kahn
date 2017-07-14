@@ -118,7 +118,7 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
       if (edgeStarting) {
         edges.splice(index, 1);
-        
+
         const targetVertex = edge.getTargetVertex(),
               incomingEdge = edge, ///
               removedEdge = edge;  ///
@@ -144,12 +144,9 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   if (edgesLength === 0) {
     removedEdges.forEach(function(removedEdge) {
-      const sourceVertex = removedEdge.getSourceVertex(),
-            targetVertex = removedEdge.getTargetVertex(),
-            outgoingEdge = removedEdge, ///
+      const targetVertex = removedEdge.getTargetVertex(),
             incomingEdge = removedEdge; ///
       
-      sourceVertex.addOutgoingEdge(outgoingEdge);
       targetVertex.addIncomingEdge(incomingEdge);
     })
   }
