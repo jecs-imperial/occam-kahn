@@ -117,6 +117,8 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
             edgeStarting = (sourceVertex === startingVertex); ///
 
       if (edgeStarting) {
+        edges.splice(index, 1);
+        
         const targetVertex = edge.getTargetVertex(),
               incomingEdge = edge, ///
               removedEdge = edge;  ///
