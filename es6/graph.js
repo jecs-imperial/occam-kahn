@@ -5,10 +5,9 @@ const Edge = require('./graph/edge'),
       arrayUtil = require('./util/array');
 
 class Graph {
-  constructor (topologicallySortedVertices, remainingEdges, edges) {
+  constructor (topologicallySortedVertices, remainingEdges) {
     this.topologicallySortedVertices = topologicallySortedVertices;
     this.remainingEdges = remainingEdges;
-    this.edges = edges;
   }
 
   getTopologicallySortedVertices() {
@@ -18,11 +17,7 @@ class Graph {
   getRemainingEdges() {
     return this.remainingEdges;
   }
-  
-  getEdges() {
-    return this.edges;
-  }
-  
+
   areCyclesPresent() {
     const remainingEdgesLength = this.remainingEdges.length,
           cyclesPresent = (remainingEdgesLength !== 0);
@@ -35,7 +30,7 @@ class Graph {
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
           topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = edges, ///
-          graph = new Graph(topologicallySortedVertices, remainingEdges, edges);
+          graph = new Graph(topologicallySortedVertices, remainingEdges);
 
     return graph;
   }
@@ -150,12 +145,9 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   if (edgesLength === 0) {
     removedEdges.forEach(function(removedEdge) {
       const targetVertex = removedEdge.getTargetVertex(),
-            incomingEdge = removedEdge, ///
-            edge = removedEdge; ///
+            incomingEdge = removedEdge; ///
       
       targetVertex.addIncomingEdge(incomingEdge);
-      
-      edges.push(edge);
     })
   }
 
