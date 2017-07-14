@@ -40,6 +40,14 @@ class Vertex {
     this.incomingEdges.splice(index, 1);
   }
 
+  forEachIncomingEdge(callback) {
+    this.incomingEdges.forEach(callback);
+  }
+
+  forEachOutgoingEdge(callback) {
+    this.outgoingEdges.forEach(callback);
+  }
+
   static fromVertexName(vertexName) {
     const name = vertexName,  ///
           incomingEdges = [],
