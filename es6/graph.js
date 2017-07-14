@@ -89,9 +89,9 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
 
       edges.push(edge);
 
-      vertex.addIncomingEdge(incomingEdge);
+      sourceVertex.addOutgoingEdge(outgoingEdge);
 
-      ancestorVertex.addOutgoingEdge(outgoingEdge);
+      targetVertex.addIncomingEdge(incomingEdge);
     });
   });
 
