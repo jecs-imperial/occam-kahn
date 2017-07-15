@@ -1,8 +1,9 @@
 'use strict';
 
-const Edge = require('./graph/edge'),
+const arrayUtil = require('./util/array'),
+      Edge = require('./graph/edge'),
       Vertex = require('./graph/vertex'),
-      arrayUtil = require('./util/array');
+      RemainingEdges = require('./graph/remainingEdges');
 
 class Graph {
   constructor (topologicallyOrderedVertices, remainingEdges) {
@@ -25,22 +26,11 @@ class Graph {
     return cyclesPresent;
   }
 
-  forEachRemainingEdgeByVertexNames(callback) {
-    this.remainingEdges.forEach(function(remainingEdge) {
-      const remainingEdgeSourceVertex = remainingEdge.getSourceVertex(),
-            remainingEdgeTargetVertex = remainingEdge.getTargetVertex(),
-            remainingEdgeSourceVertexName = remainingEdgeSourceVertex.getName(),
-            remainingEdgeTargetVertexName = remainingEdgeTargetVertex.getName();
-      
-      callback(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName);
-    });
-  }
-
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
           topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
-          remainingEdges = edges, ///
+          remainingEdges = new RemainingEdges(edges),
           graph = new Graph(topologicallyOrderedVertices, remainingEdges);
 
     return graph;
