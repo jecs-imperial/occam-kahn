@@ -20,7 +20,7 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
 
     const { Graph } = kahn;
 
-    const graph = Graph.fromVertexLiterals(
+    const graph = Graph.fromVertexLiterals([
     
       ['a', ['b']],
       ['b', ['c']],
@@ -29,7 +29,7 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
       ['f', ['g']],
       ['h', ['g']]
       
-    );
+    ]);
     
 Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. This is the preferred method when constructing a dependency tree, because a resource's dependencies are usually stipulated whereas the converse is not usually true.
    
