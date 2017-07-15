@@ -5,6 +5,13 @@ class RemainingEdges {
     this.edges = edges;
   }
 
+  areCyclesPresent() {
+    const edgesLength = this.edges.length,
+          cyclesPresent = (edgesLength !== 0);
+
+    return cyclesPresent;
+  }
+
   forEachEdgeByVertexNames(callback) {
     this.edges.forEach(function(edge) {
       const sourceVertex = edge.getSourceVertex(),
