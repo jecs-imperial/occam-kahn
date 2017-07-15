@@ -34,7 +34,7 @@ describe('es6/common/Graph', function() {
           
       ];
 
-      it('Returns a graph with the requisite sorted vertices', function() {
+      it('Returns a graph with the requisite topologically ordered vertices', function() {
         const graph = Graph.fromVertexLiterals(vertexLiterals);
 
         assert.instanceOf(graph, Graph);

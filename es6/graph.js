@@ -5,13 +5,13 @@ const Edge = require('./graph/edge'),
       arrayUtil = require('./util/array');
 
 class Graph {
-  constructor (topologicallySortedVertices, remainingEdges) {
-    this.topologicallySortedVertices = topologicallySortedVertices;
+  constructor (topologicallyOrderedVertices, remainingEdges) {
+    this.topologicallyOrderedVertices = topologicallyOrderedVertices;
     this.remainingEdges = remainingEdges;
   }
 
-  getTopologicallySortedVertices() {
-    return this.topologicallySortedVertices;
+  getTopologicallyOrderedVertices() {
+    return this.topologicallyOrderedVertices;
   }
 
   getRemainingEdges() {
@@ -28,9 +28,9 @@ class Graph {
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
-          topologicallySortedVertices = topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges),
+          topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = edges, ///
-          graph = new Graph(topologicallySortedVertices, remainingEdges);
+          graph = new Graph(topologicallyOrderedVertices, remainingEdges);
 
     return graph;
   }
@@ -98,8 +98,8 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
   return edges;
 }
 
-function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
-  let topologicallySortedVertices = [];
+function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
+  let topologicallyOrderedVertices = [];
 
   const startingVertices = startingVerticesFromVertexMap(vertexMap),
         removedEdges = [];
@@ -108,9 +108,9 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   while (startingVerticesLength > 0) {
     const startingVertex = startingVertices.pop(),
-          topologicallySortedVertex = startingVertex;  ///
+          topologicallyOrderedVertex = startingVertex;  ///
 
-    topologicallySortedVertices.push(topologicallySortedVertex);
+    topologicallyOrderedVertices.push(topologicallyOrderedVertex);
 
     arrayUtil.backwardsForEach(edges, function(edge, index) {
       const sourceVertex = edge.getSourceVertex(),
@@ -151,7 +151,7 @@ function topologicallySortedVerticesFromVertexMapAndEdges(vertexMap, edges) {
     })
   }
 
-  return topologicallySortedVertices;
+  return topologicallyOrderedVertices;
 }
 
 function startingVerticesFromVertexMap(vertexMap) {
