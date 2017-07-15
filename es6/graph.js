@@ -25,6 +25,17 @@ class Graph {
     return cyclesPresent;
   }
 
+  forEachRemainingEdgeVertexNames(callback) {
+    this.remainingEdges.forEach(function(remainingEdge) {
+      const remainingEdgeSourceVertex = remainingEdge.getSourceVertex(),
+            remainingEdgeTargetVertex = remainingEdge.getTargetVertex(),
+            remainingEdgeSourceVertexName = remainingEdgeSourceVertex.getName(),
+            remainingEdgeTargetVertexName = remainingEdgeTargetVertex.getName();
+      
+      callback(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName);
+    });
+  }
+
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),

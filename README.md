@@ -45,6 +45,12 @@ If there are cycles present, they will be amongst the remaining edges:
 
     const remainingEdges = graph.getRemainingEdges();
     
+And rather than iterate through these edges and recover the vertex names yourself you can use the `forEachRemainingEdgeVertexNames()` method:
+ 
+    graph.forEachRemainingEdgeVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
+      ...
+    }); 
+    
 The algorithm will also leave both the incoming and outgoing edges of the topologically sorted vertices intact and these are available by way of the requisite getters:
   
     const firstTopologicallySortedVertex = first(topologicallySortedVertices),
