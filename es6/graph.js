@@ -25,7 +25,7 @@ class Graph {
     return cyclesPresent;
   }
 
-  forEachRemainingEdgeVertexNames(callback) {
+  forEachRemainingEdgeByVertexNames(callback) {
     this.remainingEdges.forEach(function(remainingEdge) {
       const remainingEdgeSourceVertex = remainingEdge.getSourceVertex(),
             remainingEdgeTargetVertex = remainingEdge.getTargetVertex(),

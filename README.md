@@ -45,9 +45,9 @@ If there are cycles present, they will be amongst the remaining edges:
 
     const remainingEdges = graph.getRemainingEdges();
     
-And rather than iterate through these edges and recover the vertex names yourself you can use the `forEachRemainingEdgeVertexNames()` method:
+Rather than iterate through the remaining edges and recover the vertex names yourself you can use the `forEachRemainingEdgeByVertexNames()` method:
  
-    graph.forEachRemainingEdgeVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
+    graph.forEachRemainingEdgeByVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
       ...
     }); 
     
