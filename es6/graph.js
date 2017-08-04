@@ -22,7 +22,7 @@ class Graph {
   areCyclesPresent() { return this.remainingEdges.areCyclesPresent(); }
 
   static fromVertexNamesAndEdges(vertexNames, edges) {
-    const vertexMap = vertexMapFromVertexNames(vertexNames),
+    const vertexMap = vertexMapFromVertexNamesAndEdges(vertexNames, edges),
           topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
           graph = new Graph(topologicallyOrderedVertices, remainingEdges);
@@ -43,7 +43,7 @@ class Graph {
 
 module.exports = Graph;
 
-function vertexMapFromVertexNames(vertexNames) {
+function vertexMapFromVertexNamesAndEdges(vertexNames, edges) {
   const vertexMap = {};
 
   vertexNames.forEach(function(vertexName) {
@@ -54,6 +54,34 @@ function vertexMapFromVertexNames(vertexNames) {
 
       vertexMap[vertexName] = vertex;
     }
+  });
+
+  edges.forEach(function(edge) {
+    const sourceVertexName = edge.getSourceVertexName(),
+          targetVertexName = edge.getTargetVertexName(),
+          sourceVertexExists = vertexMap.hasOwnProperty(sourceVertexName),
+          targetVertexExists = vertexMap.hasOwnProperty(targetVertexName);
+
+    if (!sourceVertexExists) {
+      const sourceVertex = Vertex.fromVertexName(sourceVertexName);
+
+      vertexMap[sourceVertexName] = sourceVertex;
+    }
+
+    if (!targetVertexExists) {
+      const targetVertex = Vertex.fromVertexName(targetVertexName);
+
+      vertexMap[targetVertexName] = targetVertex;
+    }
+
+    const sourceVertex = vertexMap[sourceVertexName],
+          targetVertex = vertexMap[targetVertexName],
+          incomingEdge = edge,  ///
+          outgoingEdge = edge;  ///
+
+    sourceVertex.addOutgoingEdge(outgoingEdge);
+
+    targetVertex.addIncomingEdge(incomingEdge);
   });
 
   return vertexMap;
