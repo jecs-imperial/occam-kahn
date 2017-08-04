@@ -14,10 +14,8 @@ class RemainingEdges {
 
   forEachEdgeByVertexNames(callback) {
     this.edges.forEach(function(edge) {
-      const sourceVertex = edge.getSourceVertex(),
-            targetVertex = edge.getTargetVertex(),
-            sourceVertexName = sourceVertex.getName(),
-            targetVertexName = targetVertex.getName();
+      const sourceVertexName = edge.getSourceVertexName(),
+            targetVertexName = edge.getTargetVertexName();
 
       callback(sourceVertexName, targetVertexName);
     });

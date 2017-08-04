@@ -97,14 +97,14 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
     const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
           secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement, ///
-          vertexName = firstVertexLiteralElement, ///
-          vertex = vertexMap[vertexName];
+          vertexName = firstVertexLiteralElement; ///
 
     ancestorVertexNames.forEach(function(ancestorVertexName) {
-      const ancestorVertex = vertexMap[ancestorVertexName],
-            sourceVertex = ancestorVertex, ///
-            targetVertex = vertex,  ///
-            edge = new Edge(sourceVertex, targetVertex),
+      const sourceVertexName = ancestorVertexName, ///
+            targetVertexName = vertexName,  ///
+            sourceVertex = vertexMap[sourceVertexName],
+            targetVertex = vertexMap[targetVertexName],
+            edge = new Edge(sourceVertexName, targetVertexName),
             incomingEdge = edge,  ///
             outgoingEdge = edge;  ///
 
@@ -120,27 +120,27 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
 }
 
 function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
-  let topologicallyOrderedVertices = [];
-
-  const startingVertices = startingVerticesFromVertexMap(vertexMap),
+  const topologicallyOrderedVertexNames = [],
+        startingVertexNames = startingVertexNamesFromVertexMap(vertexMap),
         removedEdges = [];
 
-  let startingVerticesLength = startingVertices.length;
+  let startingVertexNamesLength = startingVertexNames.length;
 
-  while (startingVerticesLength > 0) {
-    const startingVertex = startingVertices.pop(),
-          topologicallyOrderedVertex = startingVertex;  ///
+  while (startingVertexNamesLength > 0) {
+    const startingVertexName = startingVertexNames.pop(),
+          topologicallyOrderedVertexName = startingVertexName;  ///
 
-    topologicallyOrderedVertices.push(topologicallyOrderedVertex);
+    topologicallyOrderedVertexNames.push(topologicallyOrderedVertexName);
 
     arrayUtil.backwardsForEach(edges, function(edge, index) {
-      const sourceVertex = edge.getSourceVertex(),
-            edgeStarting = (sourceVertex === startingVertex); ///
+      const sourceVertexName = edge.getSourceVertexName(),
+            edgeStarting = (sourceVertexName === startingVertexName); ///
 
       if (edgeStarting) {
         edges.splice(index, 1);
 
-        const targetVertex = edge.getTargetVertex(),
+        const targetVertexName = edge.getTargetVertexName(),
+              targetVertex = vertexMap[targetVertexName],
               incomingEdge = edge, ///
               removedEdge = edge;  ///
 
@@ -151,44 +151,51 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
         const targetVertexStarting = targetVertex.isStarting();
 
         if (targetVertexStarting) {
-          const startingVertex = targetVertex;  ///
+          const startingVertexName = targetVertexName;  ///
 
-          startingVertices.push(startingVertex);
+          startingVertexNames.push(startingVertexName);
         }
       }
     });
 
-    startingVerticesLength = startingVertices.length;
+    startingVertexNamesLength = startingVertexNames.length;
   }
 
   const edgesLength = edges.length;
 
   if (edgesLength === 0) {
     removedEdges.forEach(function(removedEdge) {
-      const targetVertex = removedEdge.getTargetVertex(),
+      const targetVertexName = removedEdge.getTargetVertexName(),
+            targetVertex = vertexMap[targetVertexName],
             incomingEdge = removedEdge; ///
       
       targetVertex.addIncomingEdge(incomingEdge);
     })
   }
 
-  return topologicallyOrderedVertices;
+  const topologicallySortedVertices = topologicallyOrderedVertexNames.map(function(topologicallyOrderedVertexName) {
+    const topologicallyOrderedVertex = vertexMap[topologicallyOrderedVertexName];
+
+    return topologicallyOrderedVertex;
+  });
+
+  return topologicallySortedVertices;
 }
 
-function startingVerticesFromVertexMap(vertexMap) {
+function startingVertexNamesFromVertexMap(vertexMap) {
   const vertexNames = Object.keys(vertexMap),
-        startingVertices = vertexNames.reduce(function(startingVertices, vertexName) {
+        startingVertexNames = vertexNames.reduce(function(startingVertexNames, vertexName) {
           const vertex = vertexMap[vertexName],
                 vertexStarting = vertex.isStarting();
 
           if (vertexStarting) {
-            const startingVertex = vertex;  ///
+            const startingVertexName = vertexName;  ///
 
-            startingVertices.push(startingVertex);
+            startingVertexNames.push(startingVertexName);
           }
 
-          return startingVertices
+          return startingVertexNames
         }, []);
 
-  return startingVertices;
+  return startingVertexNames;
 }

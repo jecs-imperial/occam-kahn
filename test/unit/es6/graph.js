@@ -11,7 +11,7 @@ describe('es6/common/Graph', function() {
     describe('given an empty list of vertex literals', function() {
       const vertexLiterals = [];
 
-      xit('Returns an instance of the Graph class', function() {
+      it('Returns an instance of the Graph class', function() {
         const graph = Graph.fromVertexLiterals(vertexLiterals);
 
         assert.instanceOf(graph, Graph);
