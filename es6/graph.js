@@ -1,9 +1,12 @@
 'use strict';
 
-const arrayUtil = require('./util/array'),
-      Edge = require('./graph/edge'),
+const necessary = require('necessary');
+
+const Edge = require('./graph/edge'),
       Vertex = require('./graph/vertex'),
       RemainingEdges = require('./graph/remainingEdges');
+
+const { array } = necessary;
 
 class Graph {
   constructor (topologicallyOrderedVertices, remainingEdges) {
@@ -91,7 +94,7 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
   const vertexMap = {};
 
   vertexLiterals.forEach(function(vertexLiteral) {
-    const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
+    const firstVertexLiteralElement = array.first(vertexLiteral),
           vertexName = firstVertexLiteralElement, ///
           vertexExists = vertexMap.hasOwnProperty(vertexName);
 
@@ -101,7 +104,7 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
       vertexMap[vertexName] = vertex;
     }
 
-    const secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
+    const secondVertexLiteralElement = array.second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement; ///
 
     ancestorVertexNames.forEach(function(ancestorVertexName) {
@@ -122,8 +125,8 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
   const edges = [];
 
   vertexLiterals.forEach(function(vertexLiteral) {
-    const firstVertexLiteralElement = arrayUtil.first(vertexLiteral),
-          secondVertexLiteralElement = arrayUtil.second(vertexLiteral),
+    const firstVertexLiteralElement = array.first(vertexLiteral),
+          secondVertexLiteralElement = array.second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement, ///
           vertexName = firstVertexLiteralElement; ///
 
@@ -160,7 +163,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
     topologicallyOrderedVertexNames.push(topologicallyOrderedVertexName);
 
-    arrayUtil.backwardsForEach(edges, function(edge, index) {
+    array.backwardsForEach(edges, function(edge, index) {
       const sourceVertexName = edge.getSourceVertexName(),
             edgeStarting = (sourceVertexName === startingVertexName); ///
 
