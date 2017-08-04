@@ -21,6 +21,15 @@ class Graph {
 
   areCyclesPresent() { return this.remainingEdges.areCyclesPresent(); }
 
+  static fromVertexNamesAndEdges(vertexNames, edges) {
+    const vertexMap = vertexMapFromVertexNames(vertexNames),
+          topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
+          remainingEdges = new RemainingEdges(edges),
+          graph = new Graph(topologicallyOrderedVertices, remainingEdges);
+
+    return graph;
+  }
+
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
@@ -33,6 +42,22 @@ class Graph {
 }
 
 module.exports = Graph;
+
+function vertexMapFromVertexNames(vertexNames) {
+  const vertexMap = {};
+
+  vertexNames.forEach(function(vertexName) {
+    const vertexExists = vertexMap.hasOwnProperty(vertexName);
+
+    if (!vertexExists) {
+      const vertex = Vertex.fromVertexName(vertexName);
+
+      vertexMap[vertexName] = vertex;
+    }
+  });
+
+  return vertexMap;
+}
 
 function vertexMapFromVertexLiterals(vertexLiterals) {
   const vertexMap = {};
