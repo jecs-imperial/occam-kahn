@@ -6,7 +6,8 @@ const Edge = require('./graph/edge'),
       Vertex = require('./graph/vertex'),
       RemainingEdges = require('./graph/remainingEdges');
 
-const { array } = necessary;
+const { array } = necessary,
+      { first, second, backwardsForEach } = array;
 
 class Graph {
   constructor (topologicallyOrderedVertices, remainingEdges) {
@@ -94,7 +95,7 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
   const vertexMap = {};
 
   vertexLiterals.forEach(function(vertexLiteral) {
-    const firstVertexLiteralElement = array.first(vertexLiteral),
+    const firstVertexLiteralElement = first(vertexLiteral),
           vertexName = firstVertexLiteralElement, ///
           vertexExists = vertexMap.hasOwnProperty(vertexName);
 
@@ -104,7 +105,7 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
       vertexMap[vertexName] = vertex;
     }
 
-    const secondVertexLiteralElement = array.second(vertexLiteral),
+    const secondVertexLiteralElement = second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement; ///
 
     ancestorVertexNames.forEach(function(ancestorVertexName) {
@@ -125,8 +126,8 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
   const edges = [];
 
   vertexLiterals.forEach(function(vertexLiteral) {
-    const firstVertexLiteralElement = array.first(vertexLiteral),
-          secondVertexLiteralElement = array.second(vertexLiteral),
+    const firstVertexLiteralElement = first(vertexLiteral),
+          secondVertexLiteralElement = second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement, ///
           vertexName = firstVertexLiteralElement; ///
 
@@ -163,7 +164,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
     topologicallyOrderedVertexNames.push(topologicallyOrderedVertexName);
 
-    array.backwardsForEach(edges, function(edge, index) {
+    backwardsForEach(edges, function(edge, index) {
       const sourceVertexName = edge.getSourceVertexName(),
             edgeStarting = (sourceVertexName === startingVertexName); ///
 
