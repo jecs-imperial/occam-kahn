@@ -25,8 +25,9 @@ class Graph {
 
   areCyclesPresent() { return this.remainingEdges.areCyclesPresent(); }
 
-  static fromVertexNamesAndEdges(vertexNames, edges) {
-    const vertexMap = vertexMapFromVertexNamesAndEdges(vertexNames, edges),
+  static fromVertexLiterals(vertexLiterals) {
+    const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
+          edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
           topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
           graph = new Graph(topologicallyOrderedVertices, remainingEdges);
@@ -34,9 +35,8 @@ class Graph {
     return graph;
   }
 
-  static fromVertexLiterals(vertexLiterals) {
-    const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
-          edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
+  static fromVertexNamesAndEdges(vertexNames, edges) {
+    const vertexMap = vertexMapFromVertexNamesAndEdges(vertexNames, edges),
           topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
           graph = new Graph(topologicallyOrderedVertices, remainingEdges);
