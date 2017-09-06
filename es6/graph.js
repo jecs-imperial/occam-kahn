@@ -6,8 +6,8 @@ const Edge = require('./graph/edge'),
       Vertex = require('./graph/vertex'),
       RemainingEdges = require('./graph/remainingEdges');
 
-const { array } = necessary,
-      { first, second, backwardsForEach } = array;
+const { arrayUtilities } = necessary,
+      { first, second, backwardsForEach } = arrayUtilities;
 
 class Graph {
   constructor (topologicallyOrderedVertices, remainingEdges) {
