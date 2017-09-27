@@ -36,6 +36,8 @@ class Graph {
   }
 
   static fromVertexNamesAndEdges(vertexNames, edges) {
+    edges = edges.slice();  ///
+
     const vertexMap = vertexMapFromVertexNamesAndEdges(vertexNames, edges),
           topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
