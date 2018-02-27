@@ -37,9 +37,9 @@ It is possible to check whether there are any cycles present:
 
     const cyclesPresent = graph.areCyclesPresent();
     
-If there are no cycles present, the topologically sorted vertices of the graph are available:
+If there are no cycles present, the topologically ordered vertices of the graph are available:
     
-    const topologicallySortedVertices = graph.getTopologicallySortedVertices();
+    const topologicallySortedVertices = graph.getTopologicallyOrderedVertices();
     
 If there are cycles present, they will be amongst the remaining edges:
 
