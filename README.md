@@ -91,5 +91,5 @@ https://gist.github.com/Sup3rc4l1fr4g1l1571c3xp14l1d0c10u5/3341dba6a53d7171fe339
 
 ## Contact
 
-* jecs@imperial.ac.uk
+* james.smith@openmathematics.org
 * http://djalbat.com
