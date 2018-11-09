@@ -16,7 +16,8 @@ This algorithm will topologically sort a graph, if there are no cycles, otherwis
     
 A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
 
-    const kahn = require('occam-kahn');
+```js
+const kahn = require('occam-kahn');
 
     const { Graph } = kahn;
 
@@ -30,37 +31,48 @@ A graph can be constructed with the `fromVertexLiterals()` factory method as fol
       ['h', ['g']]
       
     ]);
-    
+```
+
 Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. This is the preferred method when constructing a dependency tree, because a resource's dependencies are usually stipulated whereas the converse is not usually true.
    
 It is possible to check whether there are any cycles present:
 
-    const cyclesPresent = graph.areCyclesPresent();
-    
+```js
+const cyclesPresent = graph.areCyclesPresent();
+```
+
 If there are no cycles present, the topologically ordered vertices of the graph are available:
     
-    const topologicallySortedVertices = graph.getTopologicallyOrderedVertices();
-    
+```js
+const topologicallySortedVertices = graph.getTopologicallyOrderedVertices();
+```
+
 If there are cycles present, they will be amongst the remaining edges:
 
-    const remainingEdges = graph.getRemainingEdges();
-    
-    remainingEdges.forEachEdgeByVertexNames(function(sourceVertexName, targetVertexName) {
-      ...
-    });
-    
+```js
+const remainingEdges = graph.getRemainingEdges();
+
+remainingEdges.forEachEdgeByVertexNames(function(sourceVertexName, targetVertexName) {
+  ...
+});
+```
+
 Rather than iterate through the remaining edges and recover the vertex names yourself you can use the `forEachRemainingEdgeByVertexNames()` method:
  
-    graph.forEachRemainingEdgeByVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
-      ...
-    }); 
-    
+```js
+graph.forEachRemainingEdgeByVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
+  ...
+});
+```
+
 The algorithm will also leave both the incoming and outgoing edges of the topologically sorted vertices intact and these are available by way of the requisite getters:
   
-    const firstTopologicallySortedVertex = first(topologicallySortedVertices),
-          incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
-          outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
-        
+```js
+const firstTopologicallySortedVertex = first(topologicallySortedVertices),
+      incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
+      outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
+```
+
 ## Installation
 
 With [npm](https://www.npmjs.com/):
