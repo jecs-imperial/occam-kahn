@@ -6,6 +6,7 @@ An implementation of Kahn's algorithm.
 
 - [Introduction](#introduction)
 - [Installation](#installation)
+- [Usage](#usage)
 - [Building](#building)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
