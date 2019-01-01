@@ -13,24 +13,40 @@ An implementation of Kahn's algorithm.
 ## Introduction
 
 This algorithm will topologically sort a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological sorting](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation.
+
+## Installation
+
+With [npm](https://www.npmjs.com/):
+
+    npm install occam-kahn
+
+You can also clone the repository with [Git](https://git-scm.com/)...
+
+    https://github.com/jecs-imperial/occam-kahn.git
+
+...and then install the necessary modules with npm from within the project's root directory:
+
+    npm install
+
+## Usage
     
 A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
 
 ```js
 const kahn = require('occam-kahn');
 
-    const { Graph } = kahn;
+const { Graph } = kahn;
 
-    const graph = Graph.fromVertexLiterals([
-    
-      ['a', ['b']],
-      ['b', ['c']],
-      ['d', ['c']],
-      ['e', []],
-      ['f', ['g']],
-      ['h', ['g']]
-      
-    ]);
+const graph = Graph.fromVertexLiterals([
+
+  ['a', ['b']],
+  ['b', ['c']],
+  ['d', ['c']],
+  ['e', []],
+  ['f', ['g']],
+  ['h', ['g']]
+
+]);
 ```
 
 Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. This is the preferred method when constructing a dependency tree, because a resource's dependencies are usually stipulated whereas the converse is not usually true.
@@ -60,7 +76,7 @@ remainingEdges.forEachEdgeByVertexNames(function(sourceVertexName, targetVertexN
 Rather than iterate through the remaining edges and recover the vertex names yourself you can use the `forEachRemainingEdgeByVertexNames()` method:
  
 ```js
-graph.forEachRemainingEdgeByVertexNames(function(remainingEdgeSourceVertexName, remainingEdgeTargetVertexName) {
+graph.forEachRemainingEdgeByVertexNames(function(sourceVertexName, targetVertexName) {
   ...
 });
 ```
@@ -72,20 +88,6 @@ const firstTopologicallySortedVertex = first(topologicallySortedVertices),
       incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
       outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
 ```
-
-## Installation
-
-With [npm](https://www.npmjs.com/):
-
-    npm install occam-kahn
-
-You can also clone the repository with [Git](https://git-scm.com/)...
-
-    https://github.com/jecs-imperial/occam-kahn.git
-
-...and then install the necessary modules with npm from within the project's root directory:
-
-    npm install
 
 ## Building
 
