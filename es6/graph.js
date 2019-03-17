@@ -2,9 +2,9 @@
 
 const necessary = require('necessary');
 
-const Edge = require('./graph/edge'),
-      Vertex = require('./graph/vertex'),
-      RemainingEdges = require('./graph/remainingEdges');
+const Edge = require('./edge'),
+      Vertex = require('./vertex'),
+      RemainingEdges = require('./remainingEdges');
 
 const { arrayUtilities } = necessary,
       { first, second, backwardsForEach } = arrayUtilities;
