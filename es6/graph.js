@@ -10,7 +10,7 @@ const { arrayUtilities } = necessary,
       { first, second, backwardsForEach } = arrayUtilities;
 
 class Graph {
-  constructor (topologicallyOrderedVertices, remainingEdges) {
+  constructor(topologicallyOrderedVertices, remainingEdges) {
     this.topologicallyOrderedVertices = topologicallyOrderedVertices;
     this.remainingEdges = remainingEdges;
   }
