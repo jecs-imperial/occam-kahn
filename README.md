@@ -50,7 +50,7 @@ const graph = Graph.fromVertexLiterals([
 ]);
 ```
 
-Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants. This is the preferred method when constructing a dependency tree, because a resource's dependencies are usually stipulated whereas the converse is not usually true.
+Note that the array of names that is the second element of each literal gives the *ancestors* of the vertex and not its descendants.
    
 It is possible to check whether there are any cycles present:
 
