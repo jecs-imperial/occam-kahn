@@ -1,13 +1,13 @@
 {
   "name": "occam-kahn",
   "author": "James Smith",
-  "version": "2.0.57",
+  "version": "2.0.58",
   "license": "MIT",
-  "homepage": "https://github.com/occam-proof-assistant/occam-kahn",
+  "homepage": "https://github.com/jecs-imperial/occam-kahn",
   "description": "An implementation of Kahn's algoirthm.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/occam-proof-assistant/occam-kahn"
+    "url": "https://github.com/jecs-imperial/occam-kahn"
   },
   "dependencies": {
     "necessary": "^1.7.5"
