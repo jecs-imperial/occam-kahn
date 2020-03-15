@@ -30,14 +30,17 @@ You can also clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 ## Usage
-    
-A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
 
 ```js
 const kahn = require('occam-kahn');
 
 const { Graph } = kahn;
 
+...
+```
+A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
+
+```js
 const graph = Graph.fromVertexLiterals([
 
   ['a', ['b']],
