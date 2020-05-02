@@ -13,7 +13,7 @@ export default class RemainingEdges {
   }
 
   forEachEdgeByVertexNames(callback) {
-    this.edges.forEach(function(edge) {
+    this.edges.forEach((edge) => {
       const sourceVertexName = edge.getSourceVertexName(),
             targetVertexName = edge.getTargetVertexName();
 

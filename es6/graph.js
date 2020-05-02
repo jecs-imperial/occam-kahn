@@ -49,7 +49,7 @@ export default class Graph {
 function vertexMapFromVertexNamesAndEdges(vertexNames, edges) {
   const vertexMap = {};
 
-  vertexNames.forEach(function(vertexName) {
+  vertexNames.forEach((vertexName) => {
     const vertexExists = vertexMap.hasOwnProperty(vertexName);
 
     if (!vertexExists) {
@@ -59,7 +59,7 @@ function vertexMapFromVertexNamesAndEdges(vertexNames, edges) {
     }
   });
 
-  edges.forEach(function(edge) {
+  edges.forEach((edge) => {
     const sourceVertexName = edge.getSourceVertexName(),
           targetVertexName = edge.getTargetVertexName(),
           sourceVertexExists = vertexMap.hasOwnProperty(sourceVertexName),
@@ -93,7 +93,7 @@ function vertexMapFromVertexNamesAndEdges(vertexNames, edges) {
 function vertexMapFromVertexLiterals(vertexLiterals) {
   const vertexMap = {};
 
-  vertexLiterals.forEach(function(vertexLiteral) {
+  vertexLiterals.forEach((vertexLiteral) => {
     const firstVertexLiteralElement = first(vertexLiteral),
           vertexName = firstVertexLiteralElement, ///
           vertexExists = vertexMap.hasOwnProperty(vertexName);
@@ -107,7 +107,7 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
     const secondVertexLiteralElement = second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement; ///
 
-    ancestorVertexNames.forEach(function(ancestorVertexName) {
+    ancestorVertexNames.forEach((ancestorVertexName) => {
       const ancestorVertexExists = vertexMap.hasOwnProperty(ancestorVertexName);
 
       if (!ancestorVertexExists) {
@@ -124,13 +124,13 @@ function vertexMapFromVertexLiterals(vertexLiterals) {
 function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
   const edges = [];
 
-  vertexLiterals.forEach(function(vertexLiteral) {
+  vertexLiterals.forEach((vertexLiteral) => {
     const firstVertexLiteralElement = first(vertexLiteral),
           secondVertexLiteralElement = second(vertexLiteral),
           ancestorVertexNames = secondVertexLiteralElement, ///
           vertexName = firstVertexLiteralElement; ///
 
-    ancestorVertexNames.forEach(function(ancestorVertexName) {
+    ancestorVertexNames.forEach((ancestorVertexName) => {
       const sourceVertexName = ancestorVertexName, ///
             targetVertexName = vertexName,  ///
             sourceVertex = vertexMap[sourceVertexName],
@@ -163,7 +163,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
     topologicallyOrderedVertexNames.push(topologicallyOrderedVertexName);
 
-    backwardsForEach(edges, function(edge, index) {
+    backwardsForEach(edges, (edge, index) => {
       const sourceVertexName = edge.getSourceVertexName(),
             edgeStarting = (sourceVertexName === startingVertexName); ///
 
@@ -195,7 +195,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
   const edgesLength = edges.length;
 
   if (edgesLength === 0) {
-    removedEdges.forEach(function(removedEdge) {
+    removedEdges.forEach((removedEdge) => {
       const targetVertexName = removedEdge.getTargetVertexName(),
             targetVertex = vertexMap[targetVertexName],
             incomingEdge = removedEdge; ///
@@ -204,7 +204,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
     })
   }
 
-  const topologicallySortedVertices = topologicallyOrderedVertexNames.map(function(topologicallyOrderedVertexName) {
+  const topologicallySortedVertices = topologicallyOrderedVertexNames.map((topologicallyOrderedVertexName) => {
     const topologicallyOrderedVertex = vertexMap[topologicallyOrderedVertexName];
 
     return topologicallyOrderedVertex;
@@ -215,7 +215,7 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
 function startingVertexNamesFromVertexMap(vertexMap) {
   const vertexNames = Object.keys(vertexMap),
-        startingVertexNames = vertexNames.reduce(function(startingVertexNames, vertexName) {
+        startingVertexNames = vertexNames.reduce((startingVertexNames, vertexName) => {
           const vertex = vertexMap[vertexName],
                 vertexStarting = vertex.isStarting();
 
