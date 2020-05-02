@@ -1,13 +1,12 @@
 "use strict";
 
-const necessary = require("necessary");
+import { arrayUtilities } from "necessary";
 
-const Edge = require("./edge"),
-      Vertex = require("./vertex"),
-      RemainingEdges = require("./remainingEdges");
+import Edge from "./edge";
+import Vertex from "./vertex";
+import RemainingEdges from "./remainingEdges";
 
-const { arrayUtilities } = necessary,
-      { first, second, backwardsForEach } = arrayUtilities;
+const { first, second, backwardsForEach } = arrayUtilities;
 
 class Graph {
   constructor(topologicallyOrderedVertices, remainingEdges) {
