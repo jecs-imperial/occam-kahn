@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class Vertex {
   constructor(name, incomingEdges, outgoingEdges) {

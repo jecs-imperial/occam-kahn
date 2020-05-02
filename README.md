@@ -1,6 +1,6 @@
-# Kahn
+# Occam Kahn
 
-An implementation of Kahn's algorithm.
+An implementation of Kahn's algorithm for [Occam](https://github.com/jecs-imperial/occam).
 
 ### Contents
 
@@ -31,24 +31,19 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 
 ## Usage
 
-```js
-const kahn = require('occam-kahn');
-
-const { Graph } = kahn;
-
-...
-```
 A graph can be constructed with the `fromVertexLiterals()` factory method as follows:
 
-```js
+```
+import { Graph } from "../index"
+
 const graph = Graph.fromVertexLiterals([
 
-  ['a', ['b']],
-  ['b', ['c']],
-  ['d', ['c']],
-  ['e', []],
-  ['f', ['g']],
-  ['h', ['g']]
+  ["a", ["b"]],
+  ["b", ["c"]],
+  ["d", ["c"]],
+  ["e", []],
+  ["f", ["g"]],
+  ["h", ["g"]]
 
 ]);
 ```
@@ -57,37 +52,37 @@ Note that the array of names that is the second element of each literal gives th
    
 It is possible to check whether there are any cycles present:
 
-```js
+```
 const cyclesPresent = graph.areCyclesPresent();
 ```
 
 If there are no cycles present, the topologically ordered vertices of the graph are available:
     
-```js
+```
 const topologicallySortedVertices = graph.getTopologicallyOrderedVertices();
 ```
 
 If there are cycles present, they will be amongst the remaining edges:
 
-```js
+```
 const remainingEdges = graph.getRemainingEdges();
 
-remainingEdges.forEachEdgeByVertexNames(function(sourceVertexName, targetVertexName) {
+remainingEdges.forEachEdgeByVertexNames((sourceVertexName, targetVertexName) => {
   ...
 });
 ```
 
 Rather than iterate through the remaining edges and recover the vertex names yourself you can use the `forEachRemainingEdgeByVertexNames()` method:
  
-```js
-graph.forEachRemainingEdgeByVertexNames(function(sourceVertexName, targetVertexName) {
+```
+graph.forEachRemainingEdgeByVertexNames((sourceVertexName, targetVertexName) => {
   ...
 });
 ```
 
 The algorithm will also leave both the incoming and outgoing edges of the topologically sorted vertices intact and these are available by way of the requisite getters:
   
-```js
+```
 const firstTopologicallySortedVertex = first(topologicallySortedVertices),
       incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
       outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
@@ -100,10 +95,9 @@ Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have
     npm run build-debug
     npm run watch-debug
 
-
 ## Acknowledgements
 
-* This implementation was closely based on [this](https://gist.github.com/Sup3rc4l1fr4g1l1571c3xp14l1d0c10u5/3341dba6a53d7171fe3397d13d00ee3f) one.
+* This implementation is based on this [gist](https://gist.github.com/Sup3rc4l1fr4g1l1571c3xp14l1d0c10u5/3341dba6a53d7171fe3397d13d00ee3f).
 
 ## Contact
 

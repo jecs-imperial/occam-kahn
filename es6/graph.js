@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const necessary = require('necessary');
+const necessary = require("necessary");
 
-const Edge = require('./edge'),
-      Vertex = require('./vertex'),
-      RemainingEdges = require('./remainingEdges');
+const Edge = require("./edge"),
+      Vertex = require("./vertex"),
+      RemainingEdges = require("./remainingEdges");
 
 const { arrayUtilities } = necessary,
       { first, second, backwardsForEach } = arrayUtilities;
