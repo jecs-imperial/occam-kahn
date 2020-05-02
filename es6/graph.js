@@ -8,7 +8,7 @@ import RemainingEdges from "./remainingEdges";
 
 const { first, second, backwardsForEach } = arrayUtilities;
 
-class Graph {
+export default class Graph {
   constructor(topologicallyOrderedVertices, remainingEdges) {
     this.topologicallyOrderedVertices = topologicallyOrderedVertices;
     this.remainingEdges = remainingEdges;
@@ -45,8 +45,6 @@ class Graph {
     return graph;
   }
 }
-
-module.exports = Graph;
 
 function vertexMapFromVertexNamesAndEdges(vertexNames, edges) {
   const vertexMap = {};

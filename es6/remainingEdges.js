@@ -1,6 +1,6 @@
 "use strict";
 
-class RemainingEdges {
+export default class RemainingEdges {
   constructor(edges) {
     this.edges = edges;
   }
@@ -21,5 +21,3 @@ class RemainingEdges {
     });
   }
 }
-
-module.exports = RemainingEdges;

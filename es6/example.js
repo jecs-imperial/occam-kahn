@@ -1,6 +1,6 @@
 "use strict";
 
-import { Graph } from "../index"
+import { Graph } from "./index"
 
 const graph = Graph.fromVertexLiterals([
 

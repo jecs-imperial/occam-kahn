@@ -1,6 +1,6 @@
 "use strict";
 
-class Vertex {
+export default class Vertex {
   constructor(name, incomingEdges, outgoingEdges) {
     this.name = name;
     this.incomingEdges = incomingEdges;
@@ -57,5 +57,3 @@ class Vertex {
     return vertex;
   }
 }
-
-module.exports = Vertex;
