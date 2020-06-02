@@ -1,6 +1,6 @@
 "use strict";
 
-import { Graph } from "./index"
+import { Graph } from "./index" ///
 
 const graph = Graph.fromVertexLiterals([
 
@@ -16,3 +16,5 @@ const graph = Graph.fromVertexLiterals([
 const cyclesPresent = graph.areCyclesPresent(),
       remainingEdges = graph.getRemainingEdges(),
       topologicallyOrderedVertices = graph.getTopologicallyOrderedVertices();
+
+debugger
