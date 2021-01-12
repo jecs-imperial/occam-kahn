@@ -13,7 +13,7 @@ An implementation of Kahn's algorithm for [Occam](https://github.com/jecs-imperi
 
 ## Introduction
 
-This algorithm will topologically sort a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological sorting](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation.
+This algorithm will topologically order a graph, if there are no cycles, otherwise it will report the cycles. The [Wikipedia page on topological ordering](https://en.wikipedia.org/wiki/Topological_sorting) has a brief explanation.
 
 ## Installation
 
@@ -59,7 +59,7 @@ const cyclesPresent = graph.areCyclesPresent();
 If there are no cycles present, the topologically ordered vertices of the graph are available:
     
 ```
-const topologicallySortedVertices = graph.getTopologicallyOrderedVertices();
+const orderedVertices = graph.getOrderedVertices();
 ```
 
 If there are cycles present, they will be amongst the remaining edges:
@@ -80,12 +80,12 @@ graph.forEachRemainingEdgeByVertexNames((sourceVertexName, targetVertexName) => 
 });
 ```
 
-The algorithm will also leave both the incoming and outgoing edges of the topologically sorted vertices intact and these are available by way of the requisite getters:
+The algorithm will also leave both the incoming and outgoing edges of the topologically ordered vertices intact and these are available by way of the requisite getters:
   
 ```
-const firstTopologicallySortedVertex = first(topologicallySortedVertices),
-      incomingEdges = firstTopologicallySortedVertex.getIncomingEdges(),
-      outgoingEdges = firstTopologicallySortedVertex.getOutgoingEdges();
+const firstOrderedVertex = first(orderedVertices),
+      incomingEdges = firstOrderedVertex.getIncomingEdges(),
+      outgoingEdges = firstOrderedVertex.getOutgoingEdges();
 ```
 
 ## Building

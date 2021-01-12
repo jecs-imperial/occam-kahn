@@ -9,13 +9,13 @@ import RemainingEdges from "./remainingEdges";
 const { first, second, backwardsForEach } = arrayUtilities;
 
 export default class Graph {
-  constructor(topologicallyOrderedVertices, remainingEdges) {
-    this.topologicallyOrderedVertices = topologicallyOrderedVertices;
+  constructor(orderedVertices, remainingEdges) {
+    this.orderedVertices = orderedVertices;
     this.remainingEdges = remainingEdges;
   }
 
-  getTopologicallyOrderedVertices() {
-    return this.topologicallyOrderedVertices;
+  getOrderedVertices() {
+    return this.orderedVertices;
   }
 
   getRemainingEdges() {
@@ -27,9 +27,9 @@ export default class Graph {
   static fromVertexLiterals(vertexLiterals) {
     const vertexMap = vertexMapFromVertexLiterals(vertexLiterals),
           edges = edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap),
-          topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
+          orderedVertices = orderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
-          graph = new Graph(topologicallyOrderedVertices, remainingEdges);
+          graph = new Graph(orderedVertices, remainingEdges);
 
     return graph;
   }
@@ -38,9 +38,9 @@ export default class Graph {
     edges = edges.slice();  ///
 
     const vertexMap = vertexMapFromVertexNamesAndEdges(vertexNames, edges),
-          topologicallyOrderedVertices = topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges),
+          orderedVertices = orderedVerticesFromVertexMapAndEdges(vertexMap, edges),
           remainingEdges = new RemainingEdges(edges),
-          graph = new Graph(topologicallyOrderedVertices, remainingEdges);
+          graph = new Graph(orderedVertices, remainingEdges);
 
     return graph;
   }
@@ -150,8 +150,8 @@ function edgesFromVertexLiteralsAndVertexMap(vertexLiterals, vertexMap) {
   return edges;
 }
 
-function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
-  const topologicallyOrderedVertexNames = [],
+function orderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
+  const orderedVertexNames = [],
         startingVertexNames = startingVertexNamesFromVertexMap(vertexMap),
         removedEdges = [];
 
@@ -159,9 +159,9 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
 
   while (startingVertexNamesLength > 0) {
     const startingVertexName = startingVertexNames.pop(),
-          topologicallyOrderedVertexName = startingVertexName;  ///
+          orderedVertexName = startingVertexName;  ///
 
-    topologicallyOrderedVertexNames.push(topologicallyOrderedVertexName);
+    orderedVertexNames.push(orderedVertexName);
 
     backwardsForEach(edges, (edge, index) => {
       const sourceVertexName = edge.getSourceVertexName(),
@@ -204,10 +204,10 @@ function topologicallyOrderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
     })
   }
 
-  const topologicallySortedVertices = topologicallyOrderedVertexNames.map((topologicallyOrderedVertexName) => {
-    const topologicallyOrderedVertex = vertexMap[topologicallyOrderedVertexName];
+  const topologicallySortedVertices = orderedVertexNames.map((orderedVertexName) => {
+    const orderedVertex = vertexMap[orderedVertexName];
 
-    return topologicallyOrderedVertex;
+    return orderedVertex;
   });
 
   return topologicallySortedVertices;

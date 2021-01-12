@@ -15,6 +15,4 @@ const graph = Graph.fromVertexLiterals([
 
 const cyclesPresent = graph.areCyclesPresent(),
       remainingEdges = graph.getRemainingEdges(),
-      topologicallyOrderedVertices = graph.getTopologicallyOrderedVertices();
-
-debugger
+      orderedVertices = graph.getOrderedVertices();
