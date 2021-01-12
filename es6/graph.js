@@ -204,13 +204,9 @@ function orderedVerticesFromVertexMapAndEdges(vertexMap, edges) {
     })
   }
 
-  const topologicallySortedVertices = orderedVertexNames.map((orderedVertexName) => {
-    const orderedVertex = vertexMap[orderedVertexName];
+  const orderedVertices = orderedVertexNames.map((orderedVertexName) => vertexMap[orderedVertexName]);
 
-    return orderedVertex;
-  });
-
-  return topologicallySortedVertices;
+  return orderedVertices;
 }
 
 function startingVertexNamesFromVertexMap(vertexMap) {
