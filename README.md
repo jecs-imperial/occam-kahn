@@ -1,6 +1,6 @@
 # Occam Kahn
 
-An implementation of Kahn's algorithm for [Occam](https://github.com/jecs-imperial/occam).
+An implementation of Kahn's algorithm for [Occam](https://github.com/djalbat/occam).
 
 ### Contents
 
@@ -23,7 +23,7 @@ With [npm](https://www.npmjs.com/):
 
 You can also clone the repository with [Git](https://git-scm.com/)...
 
-    https://github.com/jecs-imperial/occam-kahn.git
+    https://github.com/djalbat/occam-kahn.git
 
 ...and then install the dependencies with npm from within the project's root directory:
 
@@ -102,4 +102,3 @@ This implementation is based on this [gist](https://gist.github.com/Sup3rc4l1fr4
 ## Contact
 
 * james.smith@openmathematics.org
-* http://djalbat.com
