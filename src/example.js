@@ -16,3 +16,5 @@ const graph = Graph.fromVertexLiterals([
 const cyclesPresent = graph.areCyclesPresent(),
       remainingEdges = graph.getRemainingEdges(),
       orderedVertices = graph.getOrderedVertices();
+
+debugger

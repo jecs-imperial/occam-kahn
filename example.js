@@ -1236,5 +1236,6 @@
   var cyclesPresent = graph.areCyclesPresent();
   var remainingEdges = graph.getRemainingEdges();
   var orderedVertices = graph.getOrderedVertices();
+  debugger;
 })();
 //# sourceMappingURL=example.js.map
